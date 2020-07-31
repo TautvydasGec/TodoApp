@@ -19,12 +19,19 @@ function App() {
     taskNameRef.current.value = null
   }
 
+  function toggleComplete(id) {
+		const newTasks = [...tasks];
+		const task = newTasks.find((task) => task.id === id);
+		task.complete = !task.complete;
+		setTasks(newTasks);
+	}
+
   return ( 
     <div className = "App">
       <input ref={taskNameRef} type="text" />
       <input type="date" ref ={dueDateRef} />
       <button onClick={handleAdd}>Add</button>
-      <TodoList tasks={tasks} />
+      <TodoList tasks={tasks} toggleComplete = {toggleComplete}/>
     </div>
   );
 }
