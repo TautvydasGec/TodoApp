@@ -5,7 +5,7 @@ export default function Task({ task }) {
     <div>
       <label>
         <input type="checkbox" checked={task.complete} />
-        {task.name}
+        {task.name} {task.date}
       </label>
     </div>
   )
