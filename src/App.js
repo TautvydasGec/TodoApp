@@ -24,14 +24,20 @@ function App() {
 		const task = newTasks.find((task) => task.id === id);
 		task.complete = !task.complete;
 		setTasks(newTasks);
-	}
+  }
+  
+  //deletes everything
+  function handleDelete(id){
+		const newTasks = tasks.filter((task) => task.id != id);
+		setTasks(newTasks);
+  }
 
   return ( 
     <div className = "App">
       <input ref={taskNameRef} type="text" />
       <input type="date" ref ={dueDateRef} />
       <button onClick={handleAdd}>Add</button>
-      <TodoList tasks={tasks} toggleComplete = {toggleComplete}/>
+      <TodoList tasks={tasks} toggleComplete = {toggleComplete} handleDelete={handleDelete}/>
     </div>
   );
 }
