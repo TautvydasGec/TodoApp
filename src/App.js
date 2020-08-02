@@ -7,14 +7,19 @@ function App() {
   const taskNameRef = useRef()
   const dueDateRef = useRef()
 
-
   function handleAdd(e) {
     const name = taskNameRef.current.value
     const date = dueDateRef.current.value
     if (name ==="") return
     setTasks(prevTasks => {
-      return [{ id: uuid(), name: name, complete: false, date: date===""? "NO DATE":date},...prevTasks]
+      return [{ id: uuid(),
+                name: name,
+                complete: false,
+                date: date===""? "NO DATE" : date,
+                late: Date.parse(date)-Date.parse(new Date()) < 0 ? true : false //date check should also happen every day, or every time the webpage is loaded
+              },...prevTasks]
     })
+
     dueDateRef.current.value = null
     taskNameRef.current.value = null
   }
@@ -23,12 +28,13 @@ function App() {
 		const newTasks = [...tasks];
 		const task = newTasks.find((task) => task.id === id);
 		task.complete = !task.complete;
-		setTasks(newTasks);
+    setTasks(newTasks);
+    console.log(task.late)
   }
   
-  //deletes everything
+  
   function handleDelete(id){
-		const newTasks = tasks.filter((task) => task.id != id);
+		const newTasks = tasks.filter((task) => task.id !== id);
 		setTasks(newTasks);
   }
 
