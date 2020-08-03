@@ -7,6 +7,7 @@ function App() {
   const taskNameRef = useRef()
   const dueDateRef = useRef()
 
+
   function handleAdd(e) {
     const name = taskNameRef.current.value
     const date = dueDateRef.current.value
@@ -16,7 +17,8 @@ function App() {
                 name: name,
                 complete: false,
                 date: date===""? "NO DATE" : date,
-                late: Date.parse(date)-Date.parse(new Date()) < 0 ? true : false //date check should also happen every day, or every time the webpage is loaded
+                late: Date.parse(date)-Date.parse(new Date()) < 0 ? true : false, //date check should also happen every day, or every time the webpage is loaded
+                timeAdded: Date.parse(new Date())
               },...prevTasks]
     })
 
@@ -38,11 +40,34 @@ function App() {
 		setTasks(newTasks);
   }
 
+  function sortByName(){
+    const newTasks = [...tasks];
+    newTasks.sort((a, b) => a.name.localeCompare(b.name));
+    setTasks(newTasks);
+  }
+
+  function sortByDate(){
+    const newTasks = [...tasks];
+    newTasks.sort((a, b) => a.date.localeCompare(b.date));
+    setTasks(newTasks);
+  }
+
+  function sortByTimeAdded(){
+    const newTasks = [...tasks];
+    newTasks.sort((a, b) => a.timeAdded-b.timeAdded);
+    setTasks(newTasks);
+  }
+
   return ( 
     <div className = "App">
       <input ref={taskNameRef} type="text" />
       <input type="date" ref ={dueDateRef} />
       <button onClick={handleAdd}>Add</button>
+      <div className = "sort-container">
+        <button onClick={sortByName}>Sort By Name</button>
+        <button onClick={sortByDate}>Sort By Date</button>
+        <button onClick={sortByTimeAdded}>Sort By Latest Added</button>
+      </div>
       <TodoList tasks={tasks} toggleComplete = {toggleComplete} handleDelete={handleDelete}/>
     </div>
   );
