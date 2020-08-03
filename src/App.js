@@ -2,23 +2,23 @@ import React, { useState, useRef } from 'react';
 import TodoList from './TodoList';
 import uuid from 'uuid/dist/v4';
 
+
 function App() {
   const [tasks, setTasks] = useState([])
   const taskNameRef = useRef()
   const dueDateRef = useRef()
 
-
   function handleAdd(e) {
     const name = taskNameRef.current.value
     const date = dueDateRef.current.value
-    if (name ==="") return
+    if (name ==="") return //does not allow empty task
     setTasks(prevTasks => {
       return [{ id: uuid(),
                 name: name,
                 complete: false,
-                date: date===""? "NO DATE" : date,
+                date: date===""? "Date not specified" : date,
                 late: Date.parse(date)-Date.parse(new Date()) < 0 ? true : false, //date check should also happen every day, or every time the webpage is loaded
-                timeAdded: Date.parse(new Date())
+                timeAdded: Date.parse(new Date()) //used for "Latest added" sort
               },...prevTasks]
     })
 
@@ -31,7 +31,6 @@ function App() {
 		const task = newTasks.find((task) => task.id === id);
 		task.complete = !task.complete;
     setTasks(newTasks);
-    console.log(task.late)
   }
   
   
