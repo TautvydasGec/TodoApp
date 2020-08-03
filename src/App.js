@@ -68,7 +68,7 @@ function App() {
 
   function sortByTimeAdded(){
     const newTasks = [...tasks];
-    newTasks.sort((a, b) => a.timeAdded-b.timeAdded);
+    newTasks.sort((a, b) => b.timeAdded-a.timeAdded);
     setTasks(newTasks);
   }
 
