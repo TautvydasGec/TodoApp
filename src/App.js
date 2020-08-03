@@ -1,13 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
 import uuid from 'uuid/dist/v4';
 
+const LOCAL_STORAGE_KEY = 'todoApp.task';
 
 function App() {
   const [tasks, setTasks] = useState([])
   const taskNameRef = useRef()
   const dueDateRef = useRef()
 
+  /*Loading tasks*/
+  useEffect(() => {
+		const storedTasks = JSON.parse(
+			localStorage.getItem(LOCAL_STORAGE_KEY)
+		);
+		storedTasks && setTasks(storedTasks);
+  }, []);
+  
+  /*Saving tasks*/
+	useEffect(() => {
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+	}, [tasks]);
+
+  /*List functions*/
   function handleAdd(e) {
     const name = taskNameRef.current.value
     const date = dueDateRef.current.value
@@ -33,12 +48,12 @@ function App() {
     setTasks(newTasks);
   }
   
-  
   function handleDelete(id){
 		const newTasks = tasks.filter((task) => task.id !== id);
 		setTasks(newTasks);
   }
 
+  /*sort functions*/
   function sortByName(){
     const newTasks = [...tasks];
     newTasks.sort((a, b) => a.name.localeCompare(b.name));
