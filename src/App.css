@@ -1,0 +1,72 @@
+*{
+  box-sizing: border-box;
+}
+
+.App{
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.input-container *{
+  margin: 5px;
+  font-size: large;
+}
+
+.btn{
+  color: aliceblue;
+  border: none;
+  margin: 5px;
+  background-color: rgb(0, 0, 255);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.btn:hover{
+  opacity: 0.8;
+}
+
+.btn:active{
+  transform: scale(0.95);
+}
+
+.add-btn{
+  background-color: green;
+}
+
+/*Code below is for Task.js*/
+
+.task-container {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.task-name{
+  font-size: 20px;
+}
+
+.delete-btn{
+  background-color: red;
+  margin-left: auto;
+}
+
+.task-container * {
+  margin-right: 10px;
+}
+
+.done{
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
+}

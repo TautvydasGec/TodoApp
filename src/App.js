@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
 import uuid from 'uuid/dist/v4';
+import './App.css';
 
 const LOCAL_STORAGE_KEY = 'todoApp.task';
 
@@ -74,13 +75,15 @@ function App() {
 
   return ( 
     <div className = "App">
-      <input ref={taskNameRef} type="text" />
-      <input type="date" ref ={dueDateRef} />
-      <button onClick={handleAdd}>Add</button>
+      <div className = "input-container">      
+        <input ref={taskNameRef} type="text" />
+        <input type="date" ref ={dueDateRef} />
+        <button className="btn add-btn" onClick={handleAdd}>Add</button>
+      </div>
       <div className = "sort-container">
-        <button onClick={sortByName}>Sort By Name</button>
-        <button onClick={sortByDate}>Sort By Date</button>
-        <button onClick={sortByTimeAdded}>Sort By Latest Added</button>
+        <button className="btn" onClick={sortByName}>Sort By Name</button>
+        <button className="btn" onClick={sortByDate}>Sort By Date</button>
+        <button className="btn" onClick={sortByTimeAdded}>Sort By Latest Added</button>
       </div>
       <TodoList tasks={tasks} toggleComplete = {toggleComplete} handleDelete={handleDelete}/>
     </div>
